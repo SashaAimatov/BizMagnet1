@@ -1,104 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Бизнес-Магнат</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>BizMagnet | Бизнес-империя</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Темы */
+        body.light {
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --tab-bg: #ffffff;
+            --tab-active: #3b82f6;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --header-bg: #ffffff;
+        }
+
+        body.dark {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --tab-bg: #1e293b;
+            --tab-active: #3b82f6;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --header-bg: #1e293b;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            transition: background 0.3s, color 0.3s;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            transition: background 0.2s, color 0.2s;
+            padding-bottom: 80px;
             min-height: 100vh;
         }
-        body.light {
-            background: #f0f2f5;
-            color: #1a1a2e;
-        }
-        body.dark {
-            background: #0f0f1a;
-            color: #e0e0e0;
-        }
-        .container { max-width: 600px; margin: 0 auto; padding: 16px 16px 80px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-        .nickname { font-weight: 600; font-size: 18px; }
-        .level-badge { background: #007aff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
-        .balance-card {
-            background: linear-gradient(135deg, #007aff, #00c6fb);
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 20px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .balance-label { font-size: 14px; opacity: 0.9; }
-        .balance-value { font-size: 28px; font-weight: bold; margin-top: 4px; word-break: break-word; }
-        .tabs {
+
+        /* Шапка */
+        .header {
+            background: var(--header-bg);
+            padding: 16px 20px;
             display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            background: rgba(0,0,0,0.05);
-            border-radius: 40px;
-            padding: 4px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            backdrop-filter: blur(10px);
         }
-        .dark .tabs { background: rgba(255,255,255,0.1); }
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px 0;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-weight: 500;
+
+        .user-info {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
         }
-        .tab.active {
-            background: #007aff;
+
+        .nickname {
+            font-weight: 700;
+            font-size: 18px;
+            background: var(--tab-active);
             color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
         }
+
+        .level-badge {
+            background: var(--card);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--border);
+        }
+
+        /* Карточка баланса */
+        .balance-card {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            margin: 20px;
+            padding: 24px;
+            border-radius: 32px;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .balance-label {
+            font-size: 14px;
+            opacity: 0.9;
+            letter-spacing: 0.5px;
+        }
+
+        .balance-value {
+            font-size: 36px;
+            font-weight: 800;
+            margin-top: 8px;
+            word-break: break-word;
+        }
+
+        /* Контент */
+        .content {
+            padding: 0 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Карточки бизнесов */
         .business-card {
-            background: white;
-            border-radius: 16px;
-            padding: 16px;
+            background: var(--card);
+            border-radius: 24px;
+            padding: 18px;
             margin-bottom: 12px;
             cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
-        .dark .business-card {
-            background: #1e1e2e;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+
+        .business-card:active {
+            transform: scale(0.98);
         }
-        .business-name { font-weight: bold; font-size: 18px; }
-        .business-city { font-size: 12px; opacity: 0.7; margin-top: 4px; }
-        .business-income { color: #34c759; font-weight: 600; margin-top: 8px; }
+
+        .business-name {
+            font-weight: 700;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .business-city {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .business-income {
+            color: #10b981;
+            font-weight: 700;
+            margin-top: 12px;
+            font-size: 15px;
+        }
+
+        .business-config {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Кнопка кликера */
         .clicker-btn {
-            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
             border: none;
-            border-radius: 60px;
-            padding: 30px;
-            font-size: 64px;
+            border-radius: 100px;
+            padding: 40px;
+            font-size: 80px;
             cursor: pointer;
             width: 100%;
-            transition: 0.1s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        .clicker-btn:active { transform: scale(0.98); }
-        .fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 28px;
-            background: #007aff;
+            transition: 0.07s linear;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             color: white;
-            font-size: 32px;
-            text-align: center;
-            line-height: 56px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            z-index: 100;
         }
+
+        .clicker-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Кнопки */
+        .btn {
+            background: var(--tab-active);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 40px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 12px;
+            transition: 0.1s;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -106,81 +209,186 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 200;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
+
         .modal-content {
-            background: white;
-            border-radius: 24px;
+            background: var(--card);
+            border-radius: 32px;
             padding: 24px;
             max-width: 500px;
             width: 100%;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
+            border: 1px solid var(--border);
         }
-        .dark .modal-content { background: #1e1e2e; }
-        .modal-title { font-size: 24px; font-weight: bold; margin-bottom: 16px; }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
         .input-field {
             width: 100%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #ccc;
+            padding: 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
             margin-bottom: 16px;
             font-size: 16px;
         }
-        .dark .input-field { background: #2c2c3e; border-color: #444; color: white; }
-        .btn {
-            background: #007aff;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 8px;
+
+        /* Нижние табы */
+        .bottom-tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--tab-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 12px 20px;
+            border-top: 1px solid var(--border);
+            z-index: 100;
+            backdrop-filter: blur(20px);
         }
-        .crypto-price {
-            background: rgba(0,122,255,0.2);
-            padding: 12px;
-            border-radius: 16px;
+
+        .tab {
+            flex: 1;
             text-align: center;
-            margin-bottom: 16px;
+            padding: 8px 4px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
+
+        .tab.active {
+            background: var(--tab-active);
+            color: white;
+        }
+
+        /* Рейтинг */
         .rating-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+            padding: 14px;
+            border-bottom: 1px solid var(--border);
+            background: var(--card);
+            margin-bottom: 6px;
+            border-radius: 16px;
         }
-        .dark .rating-item { border-color: #333; }
-        .warning-text { color: #ff3b30; font-size: 12px; margin-top: 8px; }
+
+        /* Крипта */
+        .crypto-price {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border: 1px solid var(--border);
+        }
+
+        /* Загрузчик */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 20px;
+            font-weight: 600;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--tab-active);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Круглая кнопка + */
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            background: var(--tab-active);
+            color: white;
+            font-size: 32px;
+            text-align: center;
+            line-height: 56px;
+            cursor: pointer;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: 0.1s;
+        }
+
+        .fab:active {
+            transform: scale(0.92);
+        }
+
+        .warning-text {
+            color: #ef4444;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 12px;
+        }
     </style>
 </head>
 <body class="light">
-    <div class="container">
-        <div class="header">
-            <span class="nickname" id="nickname">Загрузка...</span>
+    <div id="loading">
+        <div class="spinner"></div>
+        <div>🔄 Загрузка империи...</div>
+    </div>
+
+    <div class="header">
+        <div class="user-info">
+            <span class="nickname" id="nickname">—</span>
             <span class="level-badge" id="level">Ур. 1</span>
         </div>
-        <div class="balance-card">
-            <div class="balance-label">💰 БАЛАНС</div>
-            <div class="balance-value" id="balance">0 ₽</div>
-        </div>
-
-        <div class="tabs">
-            <div class="tab active" data-tab="business">📋 Бизнесы</div>
-            <div class="tab" data-tab="rating">🏆 Рейтинг</div>
-            <div class="tab" data-tab="clicker">🖱️ Кликер</div>
-            <div class="tab" data-tab="crypto">₿ Крипта</div>
-            <div class="tab" data-tab="settings">⚙️ Настройки</div>
-        </div>
-
-        <div id="content"></div>
     </div>
+
+    <div class="balance-card">
+        <div class="balance-label">💰 БАЛАНС</div>
+        <div class="balance-value" id="balance">0 ₽</div>
+    </div>
+
+    <div id="content" class="content"></div>
+
+    <div class="bottom-tabs">
+        <div class="tab active" data-tab="business">📊 Бизнес</div>
+        <div class="tab" data-tab="rating">🏆 Топ</div>
+        <div class="tab" data-tab="clicker">🖱️ Клик</div>
+        <div class="tab" data-tab="crypto">₿ Крипта</div>
+        <div class="tab" data-tab="settings">⚙️ Настройки</div>
+    </div>
+
     <div class="fab" id="newBizBtn">+</div>
 
     <div class="modal" id="modal">
@@ -191,12 +399,11 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
         tg.enableClosingConfirmation();
-
+        
         let userId = tg.initDataUnsafe.user?.id;
         let userData = null;
         let clickCount = 0;
         let clickTimer = null;
-        let currentTab = 'business';
         let businesses = [];
 
         async function apiCall(endpoint, data = null) {
@@ -210,8 +417,8 @@
         }
 
         async function initUser() {
-            let nickname = prompt("Введите уникальный никнейм:", "Игрок_" + userId);
-            if (!nickname) nickname = "Player_" + userId;
+            let nickname = prompt("🏷️ Введите ваш уникальный никнейм:", "Магнат_" + userId);
+            if (!nickname) nickname = "Магнат_" + userId;
             const res = await apiCall('/api/init', { user_id: userId, nickname: nickname });
             if (res.error) {
                 alert(res.error);
@@ -222,6 +429,7 @@
             document.getElementById('level').innerText = `Ур. ${userData.level}`;
             document.getElementById('balance').innerText = formatNumber(userData.balance) + ' ₽';
             if (userData.dark_theme) enableDarkTheme();
+            document.getElementById('loading').style.display = 'none';
             loadTab('business');
         }
 
@@ -235,7 +443,7 @@
 
         function renderBusinessList() {
             if (businesses.length === 0) {
-                document.getElementById('content').innerHTML = '<div style="text-align:center;padding:40px;">Нет бизнесов.<br>Нажмите + чтобы открыть первый</div>';
+                document.getElementById('content').innerHTML = '<div style="text-align:center;padding:40px;">🏢 Нет бизнесов.<br>👇 Нажмите + чтобы открыть первый</div>';
                 return;
             }
             let html = '';
@@ -245,7 +453,7 @@
                         <div class="business-name">🏭 ${b.name}</div>
                         <div class="business-city">📍 ${b.city} | ${b.type.replace('_', ' ')}</div>
                         <div class="business-income">💰 +${formatNumber(b.income)} ₽/мин</div>
-                        <div class="business-config">${b.config_preview}</div>
+                        <div class="business-config">⚙️ ${b.config_preview}</div>
                     </div>
                 `;
             });
@@ -259,44 +467,32 @@
             if (biz.type === 'shop') {
                 configHtml = `
                     <select id="supplier" class="input-field">
-                        <option value="cheap">Дешёвый поставщик</option>
+                        <option value="cheap">Дешёвый</option>
                         <option value="medium" ${biz.config?.supplier === 'medium' ? 'selected' : ''}>Средний</option>
                         <option value="premium">Премиум</option>
                     </select>
                     <input type="number" id="quality" class="input-field" placeholder="Качество (1-10)" value="${biz.config?.product_quality || 5}" min="1" max="10">
-                    <input type="number" id="customers" class="input-field" placeholder="Кол-во покупателей" value="${biz.config?.customers || 100}">
+                    <input type="number" id="customers" class="input-field" placeholder="Покупатели" value="${biz.config?.customers || 100}">
                 `;
             } else if (biz.type === 'taxi') {
                 configHtml = `
-                    <input type="number" id="cars" class="input-field" placeholder="Кол-во авто" value="${biz.config?.cars || 1}" min="1">
+                    <input type="number" id="cars" class="input-field" placeholder="Авто" value="${biz.config?.cars || 1}" min="1">
                     <select id="car_model" class="input-field">
                         <option value="econom">Эконом</option>
                         <option value="comfort" ${biz.config?.car_model === 'comfort' ? 'selected' : ''}>Комфорт</option>
                         <option value="business">Бизнес</option>
                     </select>
                 `;
-            } else if (biz.type === 'bank') {
-                configHtml = `
-                    <input type="number" id="loan_rate" class="input-field" placeholder="Ставка кредита %" value="${biz.config?.loan_rate || 15}">
-                    <input type="number" id="deposit_rate" class="input-field" placeholder="Ставка вклада %" value="${biz.config?.deposit_rate || 5}">
-                    <input type="number" id="capital" class="input-field" placeholder="Капитал банка" value="${biz.config?.capital || 0}">
-                `;
-            } else if (biz.type === 'airport') {
-                configHtml = `
-                    <input type="number" id="runways" class="input-field" placeholder="ВПП" value="${biz.config?.runways || 1}" min="1" max="3">
-                    <input type="number" id="terminals" class="input-field" placeholder="Терминалы" value="${biz.config?.terminals || 1}" min="1">
-                    <input type="number" id="destinations" class="input-field" placeholder="Направления" value="${biz.config?.destinations || 10}">
-                `;
             } else {
-                configHtml = '<p>Настройки для этого бизнеса будут доступны позже</p>';
+                configHtml = '<p>✨ Настройки появятся в следующем обновлении</p>';
             }
-
+            
             document.getElementById('modalContent').innerHTML = `
                 <div class="modal-title">⚙️ ${biz.name}</div>
                 ${configHtml}
-                <button class="btn" onclick="saveBusinessConfig(${biz.id})">Сохранить</button>
-                <button class="btn" onclick="renameBusiness(${biz.id})" style="background:#ff9500;">Переименовать (1M ₽)</button>
-                <button class="btn" onclick="closeModal()">Закрыть</button>
+                <button class="btn" onclick="saveBusinessConfig(${biz.id})">💾 Сохранить</button>
+                <button class="btn" onclick="renameBusiness(${biz.id})" style="background:#f97316;">✏️ Переименовать (1M ₽)</button>
+                <button class="btn" onclick="closeModal()" style="background:#64748b;">Закрыть</button>
             `;
             document.getElementById('modal').style.display = 'flex';
         }
@@ -313,30 +509,18 @@
             if (cars) config.cars = parseInt(cars);
             const car_model = document.getElementById('car_model')?.value;
             if (car_model) config.car_model = car_model;
-            const loan_rate = document.getElementById('loan_rate')?.value;
-            if (loan_rate) config.loan_rate = parseInt(loan_rate);
-            const deposit_rate = document.getElementById('deposit_rate')?.value;
-            if (deposit_rate) config.deposit_rate = parseInt(deposit_rate);
-            const capital = document.getElementById('capital')?.value;
-            if (capital) config.capital = parseInt(capital);
-            const runways = document.getElementById('runways')?.value;
-            if (runways) config.runways = parseInt(runways);
-            const terminals = document.getElementById('terminals')?.value;
-            if (terminals) config.terminals = parseInt(terminals);
-            const destinations = document.getElementById('destinations')?.value;
-            if (destinations) config.destinations = parseInt(destinations);
-
+            
             await apiCall('/api/business/update', { user_id: userId, id: bizId, config: config });
             closeModal();
             loadBusinesses();
         }
 
         async function renameBusiness(bizId) {
-            const newName = prompt("Новое название бизнеса:");
+            const newName = prompt("✏️ Новое название бизнеса:");
             if (newName) {
                 const res = await apiCall('/api/business/rename', { user_id: userId, id: bizId, new_name: newName });
                 if (res.error) alert(res.error);
-                else { alert("Бизнес переименован!"); loadBusinesses(); }
+                else { alert("✅ Бизнес переименован!"); loadBusinesses(); }
             }
             closeModal();
         }
@@ -345,17 +529,17 @@
             const types = await apiCall(`/api/available_businesses?user_id=${userId}`);
             let options = '';
             types.forEach(t => {
-                options += `<option value="${t.type}" ${!t.available ? 'disabled' : ''}>${t.name} (${t.cost.toLocaleString()} ₽) - ${t.available ? 'доступен' : 'ур.'+t.unlock_level}</option>`;
+                options += `<option value="${t.type}" ${!t.available ? 'disabled' : ''}>${t.name} — ${t.cost.toLocaleString()} ₽ ${!t.available ? '(🔒 ур.'+t.unlock_level+')' : '✅'}</option>`;
             });
             document.getElementById('modalContent').innerHTML = `
                 <div class="modal-title">🏢 Открыть бизнес</div>
                 <select id="bizType" class="input-field">${options}</select>
                 <select id="city" class="input-field">
-                    <option>Москва</option><option>Санкт-Петербург</option><option>Новосибирск</option>
+                    <option>Москва</option><option>СПб</option><option>Новосибирск</option>
                     <option>Екатеринбург</option><option>Казань</option>
                 </select>
-                <input type="text" id="bizName" class="input-field" placeholder="Название бизнеса">
-                <button class="btn" onclick="confirmCreate()">Открыть</button>
+                <input type="text" id="bizName" class="input-field" placeholder="Название">
+                <button class="btn" onclick="confirmCreate()">🏭 Открыть</button>
                 <button class="btn" onclick="closeModal()">Отмена</button>
             `;
             document.getElementById('modal').style.display = 'flex';
@@ -367,7 +551,7 @@
             const name = document.getElementById('bizName').value || `${bizType} в ${city}`;
             const res = await apiCall('/api/business/create', { user_id: userId, type: bizType, city, name });
             if (res.error) alert(res.error);
-            else { alert(res.message); await refreshBalance(); loadBusinesses(); }
+            else { alert("✅ " + res.message); await refreshBalance(); loadBusinesses(); }
             closeModal();
         }
 
@@ -390,8 +574,6 @@
                             document.getElementById('clickMessage').innerText = res.message;
                         } else {
                             document.getElementById('balance').innerText = formatNumber(res.new_balance) + ' ₽';
-                            document.getElementById('clickMessage').innerText = '+100 ₽';
-                            setTimeout(() => document.getElementById('clickMessage').innerText = '', 500);
                         }
                         localClicks = 0;
                         localTimer = null;
@@ -402,12 +584,9 @@
 
         async function loadRating() {
             const top = await apiCall(`/api/rating/top?user_id=${userId}`);
-            let html = '<h3>🏆 Топ-10 игроков</h3>';
+            let html = '<h3>🏆 Топ-10 магнатов</h3>';
             top.forEach((p, i) => {
-                html += `<div class="rating-item">
-                    <span>${i+1}. ${p.nickname}</span>
-                    <span>Ур.${p.level} | ${formatNumber(p.total_earned)} ₽</span>
-                </div>`;
+                html += `<div class="rating-item"><span>${i+1}. ${p.nickname}</span><span>Ур.${p.level} | ${formatNumber(p.total_earned)} ₽</span></div>`;
             });
             const profile = await apiCall(`/api/rating/profile?user_id=${userId}`);
             html += `<h3 style="margin-top:20px">📊 Мой профиль</h3>
@@ -421,11 +600,11 @@
         async function loadCrypto() {
             const priceData = await apiCall('/api/crypto/price');
             const holdings = await apiCall(`/api/crypto/holdings?user_id=${userId}`).catch(() => ({ amount: 0 }));
-            let html = `<div class="crypto-price">₿ Цена: ${priceData.price.toFixed(2)} ₽</div>
-                        <div>Ваши монеты: ${(holdings.amount || 0).toFixed(4)}</div>
-                        <input type="number" id="cryptoAmount" class="input-field" placeholder="Сумма в ₽ или кол-во монет">
-                        <button class="btn" onclick="buyCrypto()">Купить</button>
-                        <button class="btn" style="background:#ff3b30" onclick="sellCrypto()">Продать</button>`;
+            let html = `<div class="crypto-price">₿ 1 монета = ${priceData.price.toFixed(2)} ₽</div>
+                        <div style="text-align:center;margin-bottom:16px;">💎 У вас: ${(holdings.amount || 0).toFixed(4)} монет</div>
+                        <input type="number" id="cryptoAmount" class="input-field" placeholder="Сумма в ₽">
+                        <button class="btn" onclick="buyCrypto()">📈 Купить</button>
+                        <button class="btn" style="background:#ef4444" onclick="sellCrypto()">📉 Продать</button>`;
             document.getElementById('content').innerHTML = html;
         }
 
@@ -450,7 +629,7 @@
         function loadSettings() {
             let html = `<h3>⚙️ Настройки</h3>
                         <button class="btn" onclick="toggleTheme()">${userData?.dark_theme ? '🌞 Светлая тема' : '🌙 Тёмная тема'}</button>
-                        <button class="btn" style="background:#34c759" onclick="changeNickname()">✏️ Сменить никнейм</button>`;
+                        <button class="btn" style="background:#10b981" onclick="changeNickname()">✏️ Сменить никнейм</button>`;
             document.getElementById('content').innerHTML = html;
         }
 
@@ -466,11 +645,11 @@
         }
 
         async function changeNickname() {
-            const newName = prompt("Новый никнейм:");
+            const newName = prompt("🆕 Новый никнейм:");
             if (newName) {
                 const res = await apiCall('/api/settings/rename', { user_id: userId, nickname: newName });
                 if (res.error) alert(res.error);
-                else { alert("Никнейм изменён!"); document.getElementById('nickname').innerText = newName; }
+                else { alert("✅ Никнейм изменён!"); document.getElementById('nickname').innerText = newName; }
             }
         }
 
@@ -480,7 +659,6 @@
         }
 
         function loadTab(tab) {
-            currentTab = tab;
             if (tab === 'business') loadBusinesses();
             else if (tab === 'rating') loadRating();
             else if (tab === 'clicker') startClicker();
@@ -497,7 +675,6 @@
         });
 
         document.getElementById('newBizBtn').onclick = createBusiness;
-
         initUser();
     </script>
 </body>
