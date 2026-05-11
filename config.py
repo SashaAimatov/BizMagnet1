@@ -5,7 +5,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8701660709:AAEKa-j1RwIcMQXkosGPfDVXO_K9Cz65haQ")
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://business_db_od8s_user:fhzKXD4mc6i0oLSbpYpuIBH3ri1LkEfX@dpg-d80uv13tqb8s738hob1g-a.oregon-postgres.render.com/business_db_od8s")
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://your-domain.com")
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://bizmagnet.onrender.com")
 
 # Оптимизация
 POOL_MIN_SIZE = 10
